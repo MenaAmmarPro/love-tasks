@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#090b20">
+  <meta name="description" content="Our Lists — shared to-do lists for Mena and Ammar. Little tasks, kept together.">
+  <title>Our Lists ✦ Love for Mena</title>
+  <link rel="canonical" href="https://menaammarpro.github.io/love-tasks/">
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Our Lists — for Mena">
+  <meta property="og:title" content="Our Lists ✦ Love for Mena">
+  <meta property="og:description" content="Shared to-do lists — the small things we do together.">
+  <meta property="og:url" content="https://menaammarpro.github.io/love-tasks/">
+  <meta property="og:image" content="https://menaammarpro.github.io/love-tasks/assets/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Our Lists ✦ Love for Mena">
+  <meta name="twitter:description" content="Shared to-do lists — the small things we do together.">
+  <meta name="twitter:image" content="https://menaammarpro.github.io/love-tasks/assets/og-image.png">
+  <link rel="stylesheet" href="css/theme.css">
+  <link rel="stylesheet" href="css/app.css">
+  <script src="js/theme-main.js" defer></script>
+  <script src="js/effects.js" defer></script>
+  <script src="js/app.js" defer></script>
+  <link rel="manifest" href="manifest.webmanifest">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Our Lists">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+</head>
+<body>
+  <canvas id="starfield" aria-hidden="true"></canvas>
+
+  <header class="site-header">
+    <a class="brand" href="index.html">☑ Our Lists</a>
+    <button class="menu-toggle" aria-label="Open navigation" aria-expanded="false">Menu</button>
+    <nav class="nav-links" aria-label="Main navigation">
+      <a class="active" href="index.html">Home</a>
+      <a href="#lists">Lists</a>
+      <a href="#todo">Add a task</a>
+      <a href="#stats">Stats</a>
+      <a href="https://menaammarpro.github.io/loveformymena/">Our little universe ↗</a>
+      <button class="theme-toggle" type="button" aria-label="Toggle color theme">Theme</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero tasks-hero">
+      <p class="eyebrow">THE SMALL THINGS</p>
+      <div class="moon" aria-hidden="true">☑</div>
+      <p class="small-caption">Everything we mean to do, in one gentle place.</p>
+      <h1>Our <span>lists.</span></h1>
+      <p class="hero-description">
+        The groceries, the plans, the tiny promises — all the little things
+        we tick off together. Make a list, break it into steps, and watch the
+        bar fill up. Kept on this device only.
+      </p>
+      <div class="hero-actions">
+        <a class="button button-primary" href="#todo">Add a task <span>♥</span></a>
+        <a class="button button-ghost" href="#lists">Jump to lists</a>
+      </div>
+      <p class="signature">Made with love, just for you <span>♥</span></p>
+    </section>
+
+    <section class="section" id="lists">
+      <p class="eyebrow">OUR LISTS</p>
+      <h2>Pick a <span>list.</span></h2>
+      <p class="section-copy">Each list keeps its own little pile of tasks — and its own progress.</p>
+      <div class="list-chips" id="list-chips"></div>
+
+      <form class="new-list-form" id="new-list-form">
+        <input type="text" id="new-list-name" maxlength="80" placeholder="Name a new list…" aria-label="New list name">
+        <button class="button button-primary" type="submit">New list <span>♥</span></button>
+      </form>
+      <p class="section-note" id="lists-note" aria-live="polite"></p>
+    </section>
+
+    <section class="section" id="todo">
+      <p class="eyebrow">THE LIST</p>
+      <h2><span id="active-name">—</span></h2>
+      <div class="active-panel" id="active-panel" hidden>
+        <div class="progress">
+          <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+          <span class="progress-label" id="progress-label">0 of 0 done</span>
+        </div>
+
+        <div class="filter-row" id="filter-row" role="group" aria-label="Filter tasks">
+          <button type="button" data-filter="all" class="is-active">All</button>
+          <button type="button" data-filter="active">Active</button>
+          <button type="button" data-filter="done">Done</button>
+        </div>
+
+        <form class="new-task-form" id="new-task-form">
+          <input type="text" id="new-task-text" maxlength="200" placeholder="What should we do?" aria-label="Task text">
+          <select id="new-task-prio" aria-label="Priority">
+            <option value="low">Low</option>
+            <option value="med" selected>Medium</option>
+            <option value="high">High</option>
+          </select>
+          <input type="date" id="new-task-due" aria-label="Due date">
+          <button class="button button-primary" type="submit">Add <span>♥</span></button>
+        </form>
+
+        <ul class="task-list" id="task-list"></ul>
+
+        <div class="list-actions">
+          <button class="button button-ghost" id="clear-completed" type="button">Clear completed</button>
+          <button class="button button-ghost" id="delete-list" type="button">Delete this list</button>
+        </div>
+      </div>
+      <p class="section-note" id="active-hint" aria-live="polite"></p>
+      <p class="section-note" id="task-note" aria-live="polite"></p>
+    </section>
+
+    <section class="section" id="stats">
+      <p class="eyebrow">TOGETHER</p>
+      <h2>Our <span>progress.</span></h2>
+      <div class="stat-grid">
+        <div class="stat-card">
+          <span class="stat-number" id="stat-lists">0</span>
+          <span class="stat-label">lists</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-open">0</span>
+          <span class="stat-label">still to do</span>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number" id="stat-done">0</span>
+          <span class="stat-label">done together</span>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="site-footer">
+    <p>Made with care <span>♥</span> for Mena</p>
+    <p class="footer-small">A little universe of its own ✦</p>
+  </footer>
+</body>
+</html>
